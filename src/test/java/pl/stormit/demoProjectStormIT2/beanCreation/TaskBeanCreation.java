@@ -1,5 +1,6 @@
 package pl.stormit.demoProjectStormIT2.beanCreation;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,5 +26,16 @@ public class TaskBeanCreation {
 
         //then
         assertThat(result).isEqualTo(Task1Bean.class.getSimpleName());
+    }
+    @Test
+    void shouldCallBeanClass() {
+        // given
+        Task1Class bean = context.getBean(Task1Class.class);
+
+        // when
+        String result = bean.method();
+
+        // then
+        Assertions.assertThat(result).isEqualTo(Task1Class.class.getSimpleName());
     }
 }

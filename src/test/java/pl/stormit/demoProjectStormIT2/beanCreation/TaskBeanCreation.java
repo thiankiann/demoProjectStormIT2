@@ -38,4 +38,15 @@ public class TaskBeanCreation {
         // then
         Assertions.assertThat(result).isEqualTo(Task1Class.class.getSimpleName());
     }
+    @Test
+    void shouldCallBeanInterface() {
+        //given
+        Task1Interface bean = context.getBean(Task1Interface.class);
+
+        //when
+        String result = bean.method();
+
+        //then
+        assertThat(result).isEqualTo(Task1Interface.class.getName());
+    }
 }

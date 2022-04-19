@@ -1,10 +1,14 @@
-package pl.stormit.demoProjectStormIT2.beanCreation;
+package pl.stormit.demoProjectStormIT2;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import pl.stormit.demoProjectStormIT2.beanCreation.Task1Bean;
+import pl.stormit.demoProjectStormIT2.beanCreation.Task1Class;
+import pl.stormit.demoProjectStormIT2.beanCreation.Task1Interface;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -48,5 +52,14 @@ public class TaskBeanCreation {
 
         //then
         assertThat(result).isEqualTo(Task1Interface.class.getName());
+    }
+
+    @Test       //Exc.6 non-existing-bean
+    void showThrowExceptionForNonExistingBean() {
+        Throwable throwable = Assertions.catchThrowable(() -> context.getBean("non-existing-bean"));
+        Assertions.assertThat(throwable)
+                .isInstanceOf(NoSuchBeanDefinitionException.class)
+                .hasMessage("No bean named 'non-existing-bean' available");
+
     }
 }
